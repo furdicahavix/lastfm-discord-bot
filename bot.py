@@ -609,7 +609,7 @@ def check_rankings():
 
 
 # ============================================
-# RUN FOREVER
+# RUN ONCE
 # ============================================
 
 print("============================================")
@@ -621,29 +621,15 @@ print("Albums :", TRACK_ALBUMS)
 print("Tracks :", TRACK_TRACKS)
 print()
 
-while True:
+try:
 
-    try:
+    print("Checking Last.fm...")
 
-        print("Checking Last.fm...")
+    check_rankings()
 
-        check_rankings()
+    print("Done!")
 
-        print(
-            f"Done! Next check in {CHECK_INTERVAL} minutes."
-        )
+except Exception as error:
 
-        time.sleep(CHECK_INTERVAL * 60)
-
-    except KeyboardInterrupt:
-
-        print("\nBot stopped.")
-        break
-
-    except Exception as error:
-
-        print("ERROR:", error)
-
-        print("Trying again in 1 minute...")
-
-        time.sleep(60)
+    print("ERROR:", error)
+    raise
