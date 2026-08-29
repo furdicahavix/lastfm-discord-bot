@@ -606,6 +606,13 @@ def check_rankings():
                 new_state["tracks"] = old_state["tracks"]
 
     save_state(new_state)
+    
+    send_discord(
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "✅ **RANKING CHECK COMPLETE**\n"
+        "🕐 Next check in **10 minutes**\n"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    )
 
 
 # ============================================
