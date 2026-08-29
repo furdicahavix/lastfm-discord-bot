@@ -5,46 +5,15 @@ on:
     - cron: "3,13,23,33,43,53 * * * *"
   workflow_dispatch:
 
-permissions:
-  actions: read
-  contents: read
-
 jobs:
-  run-bot:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download repository
-        uses: actions/checkout@v4
-
-      - name: Download previous ranking state
-        uses: dawidd6/action-download-artifact@v6
-        with:
-          workflow: bot.yml
-          name: ranking-state
-          path: .
-          search_artifacts: true
-          workflow_conclusion: success
-        continue-on-error: true
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.14"
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run bot
-        env:
-          LASTFM_USERNAME: ${{ secrets.LASTFM_USERNAME }}
-          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python bot.py
-
-      - name: Save ranking state
-        uses: actions/upload-artifact@v4
-        with:
-          name: ranking-state
-          path: ranking_state.json
-          retention-days: 90
+      - name: Test scheduled run
+        run: |
+          echo "================================"
+          echo "SCHEDULE TEST"
+          echo "Time:"
+          date
+          echo "================================"
